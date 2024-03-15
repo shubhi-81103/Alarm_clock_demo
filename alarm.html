@@ -1,0 +1,77 @@
++<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <title>Alarm</title>
+        <style>
+            body{
+                font-family: cursive;
+            }
+            #clock{
+                    font-size:4em;
+                    text-align: center;
+                    margin-top: 50px;
+                    background-color:aqua;
+            }
+            input[type="time"]{
+                font-size: 1.2em;
+                width:120px;
+            }
+            button{
+                  font-size: 1.2em;
+                  margin-left:10px;
+                  cursor:pointer;
+                  background-color: blueviolet;
+                  color:white;
+            }
+        </style>
+        
+</head>
+<body>
+    <center>
+        <audio id="ringtone" src="chilled-acoustic-indie-folk-ig-version-60s-9648.mp3"></audio>
+    <h1>Alarm Project</h1>
+    <div id="clock">helloo</div>
+    Set Alarm:<input type="time" id="alarm_time"><br>
+    <button onclick="activateAlarm()">Alarm set and Activate</button>
+    <button onclick="stopAlarm()">Stop alarm</button>
+    <div id="status_msg"></div>
+    </center>
+<script>
+    const clock=document.getElementById("clock");
+    const status_msg=document.getElementById('status_msg')
+    const rintone=document.getElementById('ringtone');
+    let alarmTime,alarmIntervalId,time;
+
+    function displayTime(){
+        const now=new Date();
+        const hh=now.getHours().toString().padStart(2,'0');
+        const mm=now.getMinutes().toString().padStart(2,'0');
+        const ss=now.getSeconds().toString().padStart(2,'0');
+        time=`${hh}:${mm}`;
+        clock.innerHTML=`${hh}:${mm}:${ss}`;
+    }
+   setInterval( "displayTime()",1000);
+
+   function checkAlarm(){
+      if(time===alarmTime){
+        rintone.play();
+        status_msg.innerHTML="Alarm Activate and play!!!";
+        clearInterval(alarmIntervalId);
+      }
+   }
+    
+    function activateAlarm(){
+    alarmTime=document.getElementById("alarm_time").value;
+    status_msg.innerHTML="Alarm is set for"+alarmTime+"and Activated";
+    alarmIntervalId=setInterval("checkAlarm()",1000);
+   }
+
+   function stopAlarm(){
+   
+    rintone.pause();
+    status_msg.innerHTML="alarm is aborted by user"
+   }
+</script>
+</body>
+</html>
